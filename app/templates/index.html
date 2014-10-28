@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>
+            Hello, {% if current_user.is_authenticated() %}{{ current_user.first_name }}
+            {% else %}Stranger{% endif %}!
+        </h1>
+    </div>
+     
+    {% if current_user.is_authenticated() %}
+
+    {% set i = instance.getLimits().get('absolute') %}
+
+    <div class="row">
+        <div style="text-align:center" class="col-md-2">
+            <h3>Instances</h3>
+            <canvas id="instanceChart" width="150" height="150"></canvas>
+            <p>using {{ i.get('totalInstancesUsed')}} out of {{i.get('maxTotalInstances')}}</p>
+        </div>
+        <div style="text-align:center" class="col-md-2">
+            <h3>Cores</h3>
+            <canvas id="coresChart" width="150" height="150"></canvas>
+            <p>using {{ i.get('totalCoresUsed')}} out of {{i.get('maxTotalCores')}}</p>
+        </div>
+        <div style="text-align:center" class="col-md-2">
+            <h3>Ram</h3>
+            <canvas id="ramChart" width="150" height="150"></canvas>
+            <p>using {{ i.get('totalRAMUsed')/1024}} GB out of {{i.get('maxTotalRAMSize')/1024|int}} GB</p>
+        </div>
+        <div style="text-align:center" class="col-md-2">
+            <h3>Floating IPs</h3>
+            <canvas id="ipChart" width="150" height="150"></canvas>
+            <p>using {{ i.get('totalFloatingIpsUsed')}} out of {{i.get('maxTotalFloatingIps')}}</p>
+        </div>
+    </div>
+
+    {% endif %}
+
+{% block scripts %}
+
+{{super()}}
+{% if current_user.is_authenticated() %}
+    {# {{i}} #}
+    {% set i = instance.getLimits().get('absolute') %}
+    
+    <script>
+        var instancesdata = [
+                                {
+                                    value: {{i.get('totalInstancesUsed')}},
+                                    color:"#F7464A",
+                                    highlight: "#FF5A5E",
+                                    label: "Used"
+                                },
+                                {
+                                    value: {{i.get('maxTotalInstances')}} - {{i.get('totalInstancesUsed')}},
+                                    color: "#46BFBD",
+                                    highlight: "#5AD3D1",
+                                    label: "Free"
+                                }
+                            ];
+        var coresdata = [
+                                {
+                                    value: {{i.get('totalCoresUsed')}},
+                                    color:"#F7464A",
+                                    highlight: "#FF5A5E",
+                                    label: "Used"
+                                },
+                                {
+                                    value: {{i.get('maxTotalCores')}} - {{i.get('totalCoresUsed')}},
+                                    color: "#46BFBD",
+                                    highlight: "#5AD3D1",
+                                    label: "Free"
+                                }
+                            ];
+        var ramdata = [
+                                {
+                                    value: {{i.get('totalRAMUsed')}},
+                                    color:"#F7464A",
+                                    highlight: "#FF5A5E",
+                                    label: "Used"
+                                },
+                                {
+                                    value: {{i.get('maxTotalRAMSize')}} - {{i.get('totalRAMUsed')}},
+                                    color: "#46BFBD",
+                                    highlight: "#5AD3D1",
+                                    label: "Free"
+                                }
+                            ];
+        var ipdata = [
+                                {
+                                    value: {{i.get('totalFloatingIpsUsed')}},
+                                    color:"#F7464A",
+                                    highlight: "#FF5A5E",
+                                    label: "Used"
+                                },
+                                {
+                                    value: {{i.get('maxTotalFloatingIps')}} - {{i.get('totalFloatingIpsUsed')}},
+                                    color: "#46BFBD",
+                                    highlight: "#5AD3D1",
+                                    label: "Free"
+                                }
+                            ];
+        var ctx1 = document.getElementById("instanceChart").getContext("2d");
+        var myDoughnutChart = new Chart(ctx1).Doughnut(instancesdata);
+        var ctx2 = document.getElementById("ramChart").getContext("2d");
+        var myDoughnutChart = new Chart(ctx2).Doughnut(ramdata);
+        var ctx3 = document.getElementById("ipChart").getContext("2d");
+        var myDoughnutChart = new Chart(ctx3).Doughnut(ipdata);
+        var ctx4 = document.getElementById("coresChart").getContext("2d");
+        var myDoughnutChart = new Chart(ctx4).Doughnut(coresdata);
+    </script>
+    {% endif %}
+{% endblock %}
+
+{% endblock %}

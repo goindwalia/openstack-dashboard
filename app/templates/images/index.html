@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Images{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Images</h1>
+    </div>
+    <a href="{{ url_for('images.add') }}"><button type="button" class="btn btn-success">Add</button></a><br /><br />
+    <div class="row">
+    {% for image in images %}
+        <div class="col-md-4">
+            <strong>{{ image.get('name') }}</strong><br />
+            <span>{{image.get('description')}}</span><br /><br />
+            <a href="{{url_for('instances.create')}}?image={{image.get('id')}}"><button type="button" class="btn btn-info">Launch</button></a>
+        </div>
+    {% endfor %}
+    </div>
+    
+{% endblock %}

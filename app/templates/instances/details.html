@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Instance - {{instance.get('name')}} Details{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>{{instance.get('name')}} details</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Name</div>
+        <div class="col-md-4">{{instance.get('name')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Progress</div>
+        <div class="col-md-4">{{instance.get('progress')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">IPv4</div>
+        <div class="col-md-4">{{instance.get('accessipv4')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">IPv6</div>
+        <div class="col-md-4">{{instance.get('accessipv6')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Created on</div>
+        <div class="col-md-4">{{createdate}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Updated on</div>
+        <div class="col-md-4">{{updatedate}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">User</div>
+        <div class="col-md-4">{{ user.getUserDetails(instance.get('user_id')).get('name')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Metadata</div>
+        <div class="col-md-4">{{instance.get('metadata')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Image</div>
+        <div class="col-md-4">{{ image.getImageDetails(instance.get('image').get('id')).get('name')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Address</div>
+        <div class="col-md-4">{{instance.get('addresses')}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Flavor</div>
+        <div class="col-md-4">{{flavor.getFlavorDetails(instance.get('flavor').get('id')).get('name')}}</div>
+    </div>
+
+{% endblock %}

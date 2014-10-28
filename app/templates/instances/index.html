@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Instances{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Instances</h1>
+    </div>
+    <a href="{{ url_for('instances.create') }}"><button type="button" class="btn btn-success">Create</button></a>
+    <br /><br /><br />
+    <div class="row" style="font-weight: bold">
+        <div class="col-md-1">Name</div>
+        <div class="col-md-1">Status</div>
+        <div class="col-md-2">Actions</div>
+        <div class="col-md-1">Tools</div>
+    </div>
+    <br />
+    {% for i in instances %}
+    <div class="row">
+        <div class="col-md-1"><a href="{{ url_for('instances.instanceslist') }}{{ i.get('id') }}">{{ i.get('name') }}</a></div>
+        <div class="col-md-1">{{ i.get('status') }}</div>
+        <div class="col-md-2">
+            {% if i.get('status')=='ACTIVE' %}
+                <a href="{{ url_for('instances.instanceslist') }}reboot/{{ i.get('id') }}">Reboot</a> |
+                <a href="{{ url_for('instances.instanceslist') }}stop/{{ i.get('id') }}">Stop</a> |
+            {% elif i.get('status')=='SHUTOFF' %}
+                <a href="{{ url_for('instances.instanceslist') }}start/{{ i.get('id') }}">Start</a> |
+            {% endif %}
+                <a href="{{ url_for('instances.instanceslist') }}delete/{{ i.get('id') }}">Delete</a>
+         </div>
+         {% if i.get('status')=='ACTIVE' %}
+         <div class="col-md-2">
+            <a href="{{ url_for('instances.instanceslist') }}log/{{ i.get('id') }}">Log</a> | 
+            <a href="{{ instance.consoleInstance(i.get('id')) }}">Console</a>
+         </div>
+         {% endif %}
+    </div>
+    {% endfor %}
+
+{% endblock %}

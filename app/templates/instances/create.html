@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Instances{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Create Instance</h1>
+    </div>
+    <div class="col-md-5">
+        <form method="post" class="form" role="form">
+            {{ form.csrf_token }}
+            <div class="form-group ">
+                {{ form.servername.label(class="control-label")}}
+                {{ form.servername(class="form-control")}}
+            </div>
+            <div class="form-group ">
+                {{ form.imageselected.label(class="control-label")}}
+                {% if qstring.get('image') %}
+                {{ form.imageselected(disabled=True,class="form-control")}}
+                {% else %}
+                {{ form.imageselected(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group ">
+                {{ form.flavorselected.label(class="control-label")}}
+                {{ form.flavorselected(class="form-control")}}
+            </div>
+            <div class="form-group ">
+                {{ form.networkselected.label(class="control-label")}}
+                {{ form.networkselected(class="form-control")}}
+            </div>
+            {{ form.submit(class="btn btn-default")}}
+        </form>
+
+    </div>
+{% endblock %}
