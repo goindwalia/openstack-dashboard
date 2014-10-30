@@ -19,4 +19,4 @@ gunicorn==19.1.1
 itsdangerous==0.24
 requests==2.4.3
 wsgiref==0.1.2
-psycopg==2.5.1
+psycopg2==2.5.1
