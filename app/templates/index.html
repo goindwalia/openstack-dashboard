@@ -5,8 +5,11 @@
 {% block page_content %}
     <div class="page-header">
         <h1>
-            Hello, {% if current_user.is_authenticated() %}{{ current_user.first_name }}
-            {% else %}Stranger{% endif %}!
+            {% if current_user.is_authenticated() %}
+                Overview
+            {% else %}
+                Hello, Stranger!
+            {% endif %}
         </h1>
     </div>
      
@@ -14,28 +17,30 @@
 
     {% set i = instance.getLimits().get('absolute') %}
 
-    <div class="row">
-        <div style="text-align:center" class="col-md-2">
-            <h3>Instances</h3>
-            <canvas id="instanceChart" width="150" height="150"></canvas>
-            <p>using {{ i.get('totalInstancesUsed')}} out of {{i.get('maxTotalInstances')}}</p>
+<!--     <div class="jumbotron"> -->
+        <div class="row">
+            <div style="text-align:center" class="col-md-2">
+                <h3>Instances</h3>
+                <canvas id="instanceChart" width="150" height="150"></canvas>
+                <p>using {{ i.get('totalInstancesUsed')}} out of {{i.get('maxTotalInstances')}}</p>
+            </div>
+            <div style="text-align:center" class="col-md-2">
+                <h3>Cores</h3>
+                <canvas id="coresChart" width="150" height="150"></canvas>
+                <p>using {{ i.get('totalCoresUsed')}} out of {{i.get('maxTotalCores')}}</p>
+            </div>
+            <div style="text-align:center" class="col-md-2">
+                <h3>Ram</h3>
+                <canvas id="ramChart" width="150" height="150"></canvas>
+                <p>using {{ i.get('totalRAMUsed')/1024}} GB out of {{i.get('maxTotalRAMSize')/1024|int}} GB</p>
+            </div>
+            <div style="text-align:center" class="col-md-2">
+                <h3>Floating IPs</h3>
+                <canvas id="ipChart" width="150" height="150"></canvas>
+                <p>using {{ i.get('totalFloatingIpsUsed')}} out of {{i.get('maxTotalFloatingIps')}}</p>
+            </div>
         </div>
-        <div style="text-align:center" class="col-md-2">
-            <h3>Cores</h3>
-            <canvas id="coresChart" width="150" height="150"></canvas>
-            <p>using {{ i.get('totalCoresUsed')}} out of {{i.get('maxTotalCores')}}</p>
-        </div>
-        <div style="text-align:center" class="col-md-2">
-            <h3>Ram</h3>
-            <canvas id="ramChart" width="150" height="150"></canvas>
-            <p>using {{ i.get('totalRAMUsed')/1024}} GB out of {{i.get('maxTotalRAMSize')/1024|int}} GB</p>
-        </div>
-        <div style="text-align:center" class="col-md-2">
-            <h3>Floating IPs</h3>
-            <canvas id="ipChart" width="150" height="150"></canvas>
-            <p>using {{ i.get('totalFloatingIpsUsed')}} out of {{i.get('maxTotalFloatingIps')}}</p>
-        </div>
-    </div>
+<!--     </div> -->
 
     {% endif %}
 

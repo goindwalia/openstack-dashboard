@@ -11,10 +11,6 @@
         <div class="col-md-4">{{instance.get('name')}}</div>
     </div>
     <div class="row">
-        <div class="col-md-2">Progress</div>
-        <div class="col-md-4">{{instance.get('progress')}}</div>
-    </div>
-    <div class="row">
         <div class="col-md-2">IPv4</div>
         <div class="col-md-4">{{instance.get('accessipv4')}}</div>
     </div>
@@ -34,10 +30,12 @@
         <div class="col-md-2">User</div>
         <div class="col-md-4">{{ user.getUserDetails(instance.get('user_id')).get('name')}}</div>
     </div>
+    {% if instance.get('metadata') %}
     <div class="row">
         <div class="col-md-2">Metadata</div>
         <div class="col-md-4">{{instance.get('metadata')}}</div>
     </div>
+    {% endif %}
     <div class="row">
         <div class="col-md-2">Image</div>
         <div class="col-md-4">{{ image.getImageDetails(instance.get('image').get('id')).get('name')}}</div>
