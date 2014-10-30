@@ -10,27 +10,30 @@ class Config:
 
     # Set the following vars here (not recommended) or set it in your host as env variables (revommended)
     
-    IDENTITY_URL = 'http://112.196.38.243:5000/v2.0'
-    ADMIN_IDENTITY_URL = 'http://112.196.38.243:35357/v2.0'
-    ADMIN_TOKEN = 'openstack'
-    ADMIN_IDENTITY_URL_V3 = 'http://112.196.38.243:35357/v3'
-    IMAGE_URL_V2 = 'http://112.196.38.243:9292/v2'
-    COMPUTE_URL_V2 = 'http://112.196.38.243:8774/v2'
-    COMPUTE_URL_V2_1 = 'http://112.196.38.243:8774/v2.1'
-    NETWORK_URL_V2 = 'http://112.196.38.243:9696/v2.0'
+    IDENTITY_URL = os.environ.get('IDENTITY_URL')
+    ADMIN_IDENTITY_URL = os.environ.get('ADMIN_IDENTITY_URL')
+    ADMIN_TOKEN = os.environ.get('ADMIN_TOKEN')
+    ADMIN_IDENTITY_URL_V3 = os.environ.get('ADMIN_IDENTITY_URL_V3')
+    IMAGE_URL_V2 = os.environ.get('IMAGE_URL_V2')
+    COMPUTE_URL_V2 = os.environ.get('COMPUTE_URL_V2')
+    COMPUTE_URL_V2_1 = os.environ.get('COMPUTE_URL_V2_1')
+    NETWORK_URL_V2 = os.environ.get('NETWORK_URL_V2')
     # ID for 'users' tenant
-    DEFAULT_DOMAIN_ID = "default"
+    DEFAULT_DOMAIN_ID = os.environ.get('DEFAULT_DOMAIN_ID')
     # ID for _member_ role
-    DEFAULT_MEMBER_ROLE = "9fe2ff9ee4384b1894a90878d3e92bab"
+    DEFAULT_MEMBER_ROLE = os.environ.get('DEFAULT_MEMBER_ROLE')
+
+
+
     # Email id used to send emails for confirmation
-    # MAIL_SERVER = 'smtp.googlemail.com'
-    # MAIL_PORT = 587
-    # MAIL_USE_TLS = True
-    # MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'karan.dewgun@gmail.com'
-    # MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'Pass$123'
-    # MAIL_SUBJECT_PREFIX = '[OpenStack]'
-    # MAIL_SENDER = 'OpenStack Admin <test@example.com>'
-    # ADMIN = os.environ.get('OPENSTACK_ADMIN') or 'karan.dewgun@gmail.com'
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'karan.dewgun@gmail.com'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'Pass$123'
+    MAIL_SUBJECT_PREFIX = '[OpenStack]'
+    MAIL_SENDER = 'OpenStack Admin <test@example.com>'
+    ADMIN = os.environ.get('OPENSTACK_ADMIN') or 'karan.dewgun@gmail.com'
     
     @staticmethod
     def init_app(app):
