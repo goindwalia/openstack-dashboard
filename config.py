@@ -24,16 +24,15 @@ class Config:
     DEFAULT_MEMBER_ROLE = os.environ.get('DEFAULT_MEMBER_ROLE')
 
 
-
     # Email id used to send emails for confirmation
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 587
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'karan.dewgun@gmail.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'Pass$123'
-    MAIL_SUBJECT_PREFIX = '[OpenStack]'
-    MAIL_SENDER = 'OpenStack Admin <test@example.com>'
-    ADMIN = os.environ.get('OPENSTACK_ADMIN') or 'karan.dewgun@gmail.com'
+    MAIL_SERVER = os.environ.get('MAIL_SERVER')
+    MAIL_PORT = os.environ.get('MAIL_PORT')
+    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_SUBJECT_PREFIX = os.environ.get('MAIL_SUBJECT_PREFIX')
+    MAIL_SENDER = os.environ.get('MAIL_SENDER')
+    ADMIN = os.environ.get('ADMIN')
     
     @staticmethod
     def init_app(app):
@@ -50,6 +49,8 @@ config = {
 }
 
 class ProductionConfig(Config):
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     @classmethod
     def init_app(cls, app):
         Config.init_app(app)
